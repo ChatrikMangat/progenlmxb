@@ -1,0 +1,46 @@
+&binary_job
+
+    inlist_names(1) = 'inlist1' 
+    inlist_names(2) = 'inlist2'
+
+    evolve_both_stars = .false.
+    warn_binary_extra = .false.
+
+/ ! end of binary_job namelist
+
+&binary_controls
+    
+    photo_directory = 'photos'
+    log_directory = 'LOGS' 
+
+    terminal_interval = 10
+    write_header_frequency = 5
+    initial_period_in_days = init_p
+
+    use_other_jdot_mb = .true.
+    use_other_mdot_edd = .false.
+    use_this_for_mdot_edd_eta = -1
+    use_this_for_mdot_edd = -1
+    use_radiation_corrected_transfer_rate = .true.
+    limit_retention_by_mdot_edd = .true.
+    use_es_opacity_for_mdot_edd = .true.
+    initial_bh_spin = 0
+
+    terminate_if_initial_overflow = .false.
+
+    max_explicit_abs_mdot = 1d100
+    fm = 0.0005d0
+    fm_hard = 0.01d0
+    fa = 0.01d0
+    fr = 0.01d0
+    fr_hard = 0.1d0
+    fj = 0.001d0
+    mass_transfer_beta = 0.5d0
+
+    m1 = init_m1
+    m2 = init_m2
+    max_tries_to_achieve = 50
+    cur_mdot_frac = 0.5
+    magnetic_braking_gamma = 4.0
+
+/ ! end of binary_controls namelist

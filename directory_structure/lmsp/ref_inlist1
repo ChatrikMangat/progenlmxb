@@ -1,0 +1,123 @@
+&star_job
+
+  ! start a run from a saved model
+    load_saved_model = .false.
+   
+  ! setting intial model number
+    set_initial_model_number = .true.
+    initial_model_number = 0
+
+  ! setting initial age
+    set_initial_age = .false.
+   
+    change_v_flag = .true.
+    new_v_flag = .true.
+
+    warn_run_star_extras = .false.
+
+  ! New changes
+    change_initial_net = .true. ! switch nuclear reaction network
+    new_net_name = 'pp_and_cno_extras.net'
+    set_rate_c12ag = 'Kunz'
+    set_rate_n14pg = 'jina reaclib'
+
+/!end of star_job namelist
+
+&eos
+  ! eos options
+  ! see eos/defaults/eos.defaults
+
+/! end of eos namelist
+
+&kap
+  ! kap options
+  ! see kap/defaults/kap.defaults
+
+  ! New changes 
+    use_Type2_opacities = .true.
+    use_Zbase_for_Type1 = .true.
+    Zbase = 0.02
+
+    kap_file_prefix = 'gs98'
+    kap_CO_prefix = 'gs98_co'
+    kap_lowT_prefix = 'lowT_fa05_gs98'
+
+    kap_Type2_full_off_X = 1d-3
+    kap_Type2_full_on_X = 1d-6
+
+/! end of kap namelist
+
+&controls
+
+    photo_directory = 'photos1'
+    log_directory = 'LOGS1'
+    
+    x_ctrl(1) = 1d-4 ! velocity ratio
+    x_ctrl(2) = 1.0  ! tau limit
+
+    terminal_interval = 20
+    write_header_frequency = 10
+
+  ! Maximum number of profiles
+    max_num_profile_models = -1
+   
+  ! Output intervals
+    profile_interval = 10000
+    history_interval = 1
+
+  ! Initial Wind setup
+    alt_scale_height_flag = .true.
+    mass_change_full_on_dt = 1d-99
+    mass_change_full_off_dt = 1d-99
+    wind_boost_full_off_L_div_Ledd = 1d99
+    wind_boost_full_on_L_div_Ledd = 1d99
+
+    use_dedt_form_of_energy_eqn = .true.
+    use_gold_tolerances = .true.
+
+
+  ! New changes
+
+  ! Atmosphere setup
+    atm_option = 'T_tau'
+    atm_T_tau_relation = 'Eddington'
+    atm_T_tau_opacity = 'fixed'
+
+  ! Convection set up
+    mixing_length_alpha = 2.0
+    conv_core_gap_dq_limit = 0.1
+
+  ! Final Overshooting setup
+    overshoot_scheme(1) = 'exponential'
+    overshoot_zone_type(1) = 'nonburn'
+    overshoot_zone_loc(1) = 'shell'
+    overshoot_bdy_loc(1) = 'bottom'
+    overshoot_f(1) = 0.128
+    overshoot_f0(1) = 0.100
+
+    overshoot_scheme(2) = 'exponential'
+    overshoot_zone_type(2) = 'any'
+    overshoot_zone_loc(2) = 'any'
+    overshoot_bdy_loc(2) = 'any'
+    overshoot_f(2) = 0.014
+    overshoot_f0(2) = 0.004
+    
+  ! Wind setup
+    hot_wind_scheme = 'Vink'
+    cool_wind_RGB_scheme = 'Reimers'
+    cool_wind_AGB_scheme = 'Blocker'
+    Vink_scaling_factor = 0.1d0
+    Reimers_scaling_factor = 0.1
+    Blocker_scaling_factor = 0.5
+    RGB_to_AGB_wind_switch = 1d-4    
+    cool_wind_full_on_T = 0.8d4
+    hot_wind_full_on_T = 1.2d4
+
+  ! Minimum timestep for solver
+    min_timestep_limit = 1d-10
+
+  ! Maximum age of system
+    max_age = 1d10
+
+/! end of controls namelist
+
