@@ -21,7 +21,7 @@ for c in confs.keys():
         for j in confs[c][1]:
                 try:
 
-                    fpath = '/Path/to/simulation/set/'+c+'/m_'+f'{i:4.2f}'+'_p_'+f'{j:4.2f}'+'.data'
+                    fpath = '/path/to/simulation/set/'+c+'/m_'+f'{i:4.2f}'+'_p_'+f'{j:4.2f}'+'.data'
                     if os.path.exists(fpath):
                         infile = open(fpath,'rb')
                         vals = pickle.load(infile)
@@ -31,6 +31,9 @@ for c in confs.keys():
                         print(vals.shape)
                     else:
                         print("No path found: "+fpath)
+                        outfile = file.open("missing_data.txt","a")
+                        outfile.write(fpath+"\n")
+                        outfile.close()
                     
                     # Any code written here will be applied to all simulation data files present in the set.
 
