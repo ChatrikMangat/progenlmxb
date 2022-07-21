@@ -3,11 +3,14 @@
 import numpy as np
 import pickle
 import time
-import os.path
+import os
 
 start_time = time.time()
 
 print("Start Test")
+
+db_location = os.environ['DB_LOCATION']
+print(db_location)
 
 m_arrl = np.arange(4.0,7.1,0.1)
 m_arrs = np.arange(0.95,4.05,0.05)
@@ -21,7 +24,7 @@ for c in confs.keys():
         for j in confs[c][1]:
                 try:
 
-                    fpath = '/path/to/simulation/set/'+c+'/m_'+f'{i:4.2f}'+'_p_'+f'{j:4.2f}'+'.data'
+                    fpath = db_location+'ns_data/'+c+'/m_'+f'{i:4.2f}'+'_p_'+f'{j:4.2f}'+'.data'
                     if os.path.exists(fpath):
                         infile = open(fpath,'rb')
                         vals = pickle.load(infile)
@@ -29,12 +32,11 @@ for c in confs.keys():
 
                         print(fpath)
                         print(vals.shape)
+                
                     else:
                         print("No path found: "+fpath)
-                        outfile = file.open("missing_data.txt","a")
-                        outfile.write(fpath+"\n")
-                        outfile.close()
-                    
+                        continue
+
                     # Any code written here will be applied to all simulation data files present in the set.
 
                 except Exception as e:

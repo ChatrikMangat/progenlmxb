@@ -1,8 +1,9 @@
 import numpy as np
 import pickle
 import time
-import os.path
+import os
 import sys
+
 
 ## Arrays for creating Progenitor Grid. The m_arr arrays corrrespond to the progenitor donor masses and the p_arr arrays correspond to log10(progenitor orbital period/days). The "l" and "s" signify large and small interval sizes respectively.
 m_arrl = np.arange(4.0,7.1,0.1)
@@ -159,15 +160,19 @@ def get_progens(query):
     ## This condition is used because the maximum mass that can be accreted by a BH in our simulation setup is 0.5*7.0 (MT efficiency * max donor mass) = 3.5
     ## No system in the 5 msol Set will reach the accretor mass given in the query, so there is no need to search through the 5 Msol Set.
     ## Therefore, for our example, only the 7 Msol Set will be selected to be searched through.
+    
+    db_location = os.environ['DB_LOCATION']
+    print(db_location)
+
     if query['bhns'] == 0:
-        data_paths.append('/path/to/database/'+'ns_data/')
+        data_paths.append(db_location+'ns_data/')
     else:
         for x in bh_masses:
             if(x > query['m2'][1]):
                 continue
             if(x < query['m2'][0]-3.5):
                 continue
-            data_paths.append('/path/to/database/'+'runs'+str(int(x))+'_data/')
+            data_paths.append(db_location+'runs'+str(int(x))+'_data/')
     print(data_paths)
 
     ## Loop through the selected simulation Sets
