@@ -1,6 +1,6 @@
 # progenlmxb
 
-This is a companion repository for the database and tool described in the paper titled Low Mass X-ray Binary Simulation Data Release by C. s. Mangat, N. Ivanova and K. Van.
+This is a companion repository for the database and tool described in the paper titled Low Mass X-ray Binary Simulation Data Release by C. S. Mangat, N. Ivanova and K. Van.
 
 **directory_structure**: Contains scripts to create the all the pre-set directories and input files for one set of simulations (corresponding to one accretor mass). There are four directories to segregate simulations based on the input grid resolution as described in our paper. This script can be run using the following command in each of the four directories:
 ```
